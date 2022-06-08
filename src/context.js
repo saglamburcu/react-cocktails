@@ -7,16 +7,22 @@ const CocktailContext = createContext();
 export const CocktailProvider = ({ children }) => {
   const [cocktails, setCocktails] = useState([]);
   const [cocktailName, setCocktailName] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getData = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${url}${cocktailName}`);
       const result = await response.json();
-      setCocktails(result.drinks.sort((a, b) => (a.strDrink < b.strDrink ? -1 : 1)));
-      setFilteredData(result.drinks);
+      if (result.drinks) {
+        setCocktails(result.drinks);
+      } else {
+        setCocktails([]);
+      }
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -28,23 +34,12 @@ export const CocktailProvider = ({ children }) => {
     setCocktailName(e.target.value);
   };
 
-  useEffect(() => {
-
-    const newFilter = cocktails.filter(cocktail => {
-      return cocktail.strDrink.toLowerCase().includes(cocktailName.toLowerCase());
-    });
-
-    if (cocktailName === "") {
-      setFilteredData(cocktails);
-    } else {
-      setFilteredData(newFilter);
-    };
-  }, [cocktailName])
-
   const values = {
     cocktailName,
     handleChange,
-    filteredData
+    cocktails,
+    isLoading,
+    setIsLoading
   }
 
   return (

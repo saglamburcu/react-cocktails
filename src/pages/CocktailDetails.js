@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 function CocktailDetails() {
   const { cocktailId } = useParams();
   const [cocktailDetail, setCocktailDetail] = useState([]);
-  const { filteredData } = useGlobalContext();
+  const { cocktails } = useGlobalContext();
 
   useEffect(() => {
-    let filtered = filteredData.filter(data => data.idDrink === cocktailId);
+    let filtered = cocktails.filter(data => data.idDrink === cocktailId);
     setCocktailDetail(filtered);
   }, [cocktailId]);
 
@@ -19,6 +19,7 @@ function CocktailDetails() {
           const { idDrink, strDrink, strDrinkThumb, strCategory, strAlcoholic, strGlass, strInstructions, strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6 } = cocktail;
 
           const ingredients = [strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6];
+
           return (
             <section key={idDrink} className="cocktail-details">
               <div className="title">
