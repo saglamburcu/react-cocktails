@@ -1,0 +1,25 @@
+.cocktails {
+  width: 1250px;
+  height: auto;
+  position: absolute;
+  top: 300px;
+  display: grid;
+  place-items: center;
+  padding: 50px 30px;
+}
+
+.cocktailsContent {
+  width: 100%;
+  padding: 10px;
+  display: grid;
+  justify-content: center;
+}
+
+.cocktailsContent h1 {
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  color: rgb(53, 49, 49);
+  font-size: 35px;
+  letter-spacing: 2px;
+}
